@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "business-data": {
+      "command": "python",
+      "args": ["-m", "mcp_data_server"],
+      "cwd": "C:/path/to/mcp-data-server",
+      "env": {
+        "DATABASE_PATH": "C:/path/to/your.db",
+        "ALLOWED_TABLES": "customers,orders,order_items",
+        "MASKED_COLUMNS": "customers.email,customers.phone",
+        "MAX_ROWS": "200",
+        "AUDIT_LOG_PATH": "C:/path/to/audit.log"
+      }
+    }
+  }
+}
