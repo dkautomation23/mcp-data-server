@@ -1,0 +1,22 @@
+# Secrets and local config
+.env
+
+# Local data and logs - the demo DB is generated, never committed
+*.db
+*.sqlite
+*.sqlite3
+audit.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
