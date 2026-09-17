@@ -24,8 +24,14 @@ def _csv_env(name: str) -> list[str]:
 
 @dataclass(frozen=True, slots=True)
 class Settings:
+    # Every default below is a factory, not a plain value. A bare
+    # `= os.getenv(...)` is evaluated once, when this module is first imported,
+    # so every later `Settings()` would hand back the environment as it looked
+    # at import time - and a process that sets its environment after the import
+    # (a test, an embedded run, a reload) would silently get the wrong database.
+
     # SQLite file the server reads. Opened read-only regardless of this path.
-    database_path: str = os.getenv("DATABASE_PATH", "demo.db")
+    database_path: str = field(default_factory=lambda: os.getenv("DATABASE_PATH", "demo.db"))
 
     # Tables the model may touch. Empty list = every table in the file.
     # Anything not listed is invisible: it is not described and not queryable.
@@ -36,13 +42,14 @@ class Settings:
     masked_columns: list[str] = field(default_factory=lambda: _csv_env("MASKED_COLUMNS"))
 
     # Hard ceiling on rows returned per call - protects context and the DB.
-    max_rows: int = int(os.getenv("MAX_ROWS", "200"))
+    max_rows: int = field(default_factory=lambda: int(os.getenv("MAX_ROWS", "200")))
 
     # Statement timeout. A runaway query is cancelled instead of hanging Claude.
-    query_timeout_seconds: float = float(os.getenv("QUERY_TIMEOUT_SECONDS", "10"))
+    query_timeout_seconds: float = field(
+        default_factory=lambda: float(os.getenv("QUERY_TIMEOUT_SECONDS", "10")))
 
     # Append every executed statement to this file (audit trail). Empty = off.
-    audit_log_path: str = os.getenv("AUDIT_LOG_PATH", "audit.log")
+    audit_log_path: str = field(default_factory=lambda: os.getenv("AUDIT_LOG_PATH", "audit.log"))
 
     def is_table_allowed(self, table: str) -> bool:
         return not self.allowed_tables or table.lower() in self.allowed_tables
