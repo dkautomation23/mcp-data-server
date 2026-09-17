@@ -14,7 +14,7 @@ import json
 import logging
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 from .config import get_settings
 from .db import Database, QueryRejected
@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s %(message
 settings = get_settings()
 database = Database(settings)
 
-mcp = FastMCP(
+mcp = MCPServer(
     "business-data",
     instructions=(
         "Read-only access to a business database. Call list_tables first, then "

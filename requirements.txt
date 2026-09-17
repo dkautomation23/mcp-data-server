@@ -1,4 +1,4 @@
-mcp>=1.2
+mcp>=2.2
 python-dotenv>=1.0
 
 # Development / tests
