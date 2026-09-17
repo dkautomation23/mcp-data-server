@@ -1,5 +1,7 @@
 # mcp-data-server
 
+[![CI](https://github.com/dkautomation23/mcp-data-server/actions/workflows/ci.yml/badge.svg)](https://github.com/dkautomation23/mcp-data-server/actions/workflows/ci.yml)
+
 Sample project demonstrating production web-scraping / automation patterns.
 
 An **MCP server that gives Claude (or any MCP client) read-only access to a
