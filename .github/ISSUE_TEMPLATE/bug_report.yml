@@ -1,0 +1,53 @@
+name: Bug report
+description: Something behaves differently from what the README says
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not paste real row data, connection strings, or the contents of
+        your database file. Describe the shape of the data instead, or use
+        the bundled demo database (`python -m mcp_data_server.seed`).
+
+        Found a security hole instead? Do not use this form — see SECURITY.md.
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.10 or 3.12 (CI's tested versions)"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Windows 11 / Ubuntu 22.04 / macOS 14"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command or tool call
+      description: >-
+        How you started the server (`python -m mcp_data_server`) and the
+        tool call that shows the problem, e.g. `run_sql("SELECT ...")`.
+      render: console
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input data
+      description: >-
+        The relevant ALLOWED_TABLES/MASKED_COLUMNS settings and the SQL or
+        tool arguments used. Never paste DATABASE_PATH contents or real row
+        data — describe the schema/shape instead, or reproduce against the
+        demo database.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened instead
+    validations:
+      required: true
